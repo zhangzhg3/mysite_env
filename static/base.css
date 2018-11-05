@@ -1,0 +1,14 @@
+* {
+    margin: 0;   /*外边距，如果不设置这个为0，则在设置背景颜色时只是字体有背景，而不是整个导航栏有背景*/
+    padding: 0;   /*内边距*/
+}
+body {
+    margin-top: 70px!important;
+}
+ul {
+    list-style-type: none!important;   /*去电点*/
+}
+
+ul.navbar-right {
+    margin-right: 0; 
+}

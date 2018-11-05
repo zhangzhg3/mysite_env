@@ -1,0 +1,50 @@
+>>> from blog.models import Blog,BlogType,ReadNum
+>>> Blog.objects.all()
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, '...(remaining elements truncated)...']>
+>>> BlogType.objects.all()
+<QuerySet [<BlogType: Django>, <BlogType: 随笔>, <BlogType: 感悟>]>
+>>> ReadNum.objects.all()
+<QuerySet [<ReadNum: ReadNum object (1)>]>
+>>> from django.shortcuts import get_object_or_404
+>>> Blog.objects.filter(blog_type=get_object_or_404(BlogType,pk=2))
+<QuerySet [<Blog: Blog: three>, <Blog: Blog: two>]>
+>>> BlogType.objects.filter(type_name__contains='Django')
+<QuerySet [<BlogType: Django>]>
+>>> Blog.objects.filter(created_time__year=2018)
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, '...(remaining elements truncated)...']>
+>>> Blog.objects.filter(content__contains='love')
+<QuerySet [<Blog: Blog: four>, <Blog: Blog: three>, <Blog: Blog: two>]>
+>>> ReadNum.objects.filter(blog=get_object_or_404(Blog,pk=36))
+<QuerySet [<ReadNum: ReadNum object (1)>]>
+>>> ReadNum.objects.filter(blog=get_object_or_404(Blog,pk=35))
+<QuerySet []>
+>>> Blog.objects.get(title = 'for 30')
+<Blog: Blog: for 30>
+>>> Blog.objects.get(blog_type = get_object_or_404(BlogType,pk=3))
+<Blog: Blog: one>   # get只能返回一个值才不报错，否则报错
+>>> Blog.objects.filter(created_time__year=2018,created_time__month=1)
+<QuerySet []>
+>>> Blog.objects.filter(created_time__year=2018,created_time__month=9)
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, '...(remaining elements truncated)...']>
+
+>>> from django.db.models import Count
+>>> BlogType.objects.all().annotate(blog_count=Count('blog'))
+<QuerySet [<BlogType: Django>, <BlogType: 随笔>, <BlogType: 感悟>]>
+
+>>> Blog(title='one')
+<Blog: Blog: one>
+>>> Blog.objects.get(title='one')
+<Blog: Blog: one>
+>>> Blog.objects.all().last()
+<Blog: Blog: one>
+>>> Blog.objects.filter(title__contains='one')[0]
+<Blog: Blog: one>
+>>> Blog(title=get_object_or_404(Blog,pk=3))
+<Blog: Blog: Blog: one>
+
+
+
+>>> ReadNum.objects.get(blog=get_object_or_404(Blog,pk=36))
+<ReadNum: ReadNum object (1)>
+>>> Blog.objects.get(blog=get_object_or_404(Blog,pk=36))  #报错，因为Blog没有blog这个字段
+

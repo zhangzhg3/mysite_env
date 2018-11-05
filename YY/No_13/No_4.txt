@@ -1,0 +1,56 @@
+(ll_env) zhigang@QIHUI01:~/Web_database/mysite_env$ python3 manage.py shell
+Python 3.4.3 (default, Nov 17 2016, 01:08:31)
+[GCC 4.8.4] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from django.core.paginator import Paginator
+>>> from django.models import Blog
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ImportError: No module named 'django.models'
+>>> from blog.models import Blog
+>>> blogs = Blog.objects.all()
+>>> blogs
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, '...(remaining elements truncated)...']>
+>>> paginator = Paginator(blogs,10)
+>>> paginator
+<django.core.paginator.Paginator object at 0x7fb09515fe80>
+>>> dir(paginator)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_check_object_list_is_ordered', '_get_page', 'allow_empty_first_page', 'count', 'get_page', 'num_pages', 'object_list', 'orphans', 'page', 'page_range', 'per_page', 'validate_number']
+>>> paginator.count
+34
+>>> paginator.num_page
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Paginator' object has no attribute 'num_page'
+>>> paginator.num_pages
+4
+>>> paginator.page_range
+range(1, 5)
+>>> paginator.object_list
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, '...(remaining elements truncated)...']>
+>>> page1 = paginator.page(1)
+>>> page1
+<Page 1 of 4>
+>>> dir(page1)
+['__abstractmethods__', '__class__', '__contains__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '__weakref__', '_abc_cache', '_abc_negative_cache', '_abc_negative_cache_version', '_abc_registry', 'count', 'end_index', 'has_next', 'has_other_pages', 'has_previous', 'index', 'next_page_number', 'number', 'object_list', 'paginator', 'previous_page_number', 'start_index']
+>>> page1.object_list
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>]>
+>>> page1.paginator
+<django.core.paginator.Paginator object at 0x7fb09515fe80>
+>>> page1.count
+<bound method Page.count of <Page 1 of 4>>
+>>> page1.count()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+TypeError: count() missing 1 required positional argument: 'value'
+>>> help(page1.count)
+
+>>> page1.object_list.count()
+10
+>>> page1.paginator.count
+34
+>>> page1.paginator.page_range
+range(1, 5)
+>>> exit()
+

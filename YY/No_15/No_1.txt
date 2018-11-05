@@ -1,0 +1,28 @@
+>>> from blog.models import Blog
+>>> Blog.objects.filter(title__contains='Django')
+<QuerySet []>
+>>> Blog.objects.filter(id__range(4,8))
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'id__range' is not defined
+>>> Blog.objects.filter(id__range=(4,8))
+<QuerySet [<Blog: Blog: for 2>, <Blog: Blog: for 1>, <Blog: Blog: four>, <Blog: Blog: three>, <Blog: Blog: two>]>
+>>> Blog.objects.filter(id__in=[4,8])
+<QuerySet [<Blog: Blog: for 2>, <Blog: Blog: two>]>
+>>> Blog.objects.filter(title__icontains='django')
+<QuerySet []>
+>>> Blog.objects.filter(title__icontains='Django')
+<QuerySet []>
+>>> Blog.objects.filter(title__contains='Django')
+<QuerySet []>
+>>> Blog.objects.all()
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, '...(remaining elements truncated)...']>
+>>> Blog.objects.filter(title__contains='one')
+<QuerySet [<Blog: Blog: one>]>
+>>> Blog.objects.filter(title__startswith='one')
+<QuerySet [<Blog: Blog: one>]>
+>>> Blog.objects.exclude(title__startswith='for 3')
+<QuerySet [<Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>, <Blog: Blog: for 14>, <Blog: Blog: for 13>, <Blog: Blog: for 12>, <Blog: Blog: for 11>, <Blog: Blog: for 10>, '...(remaining elements truncated)...']>
+>>> Blog.objects.exclude(id__range = (1,20))
+<QuerySet [<Blog: Blog: for 30>, <Blog: Blog: for 29>, <Blog: Blog: for 28>, <Blog: Blog: for 27>, <Blog: Blog: for 26>, <Blog: Blog: for 25>, <Blog: Blog: for 24>, <Blog: Blog: for 23>, <Blog: Blog: for 22>, <Blog: Blog: for 21>, <Blog: Blog: for 20>, <Blog: Blog: for 19>, <Blog: Blog: for 18>, <Blog: Blog: for 17>, <Blog: Blog: for 16>, <Blog: Blog: for 15>]>
+

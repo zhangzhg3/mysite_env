@@ -1,0 +1,18 @@
+* {
+    margin: 0;   /*外边距，如果不设置这个为0，则在设置背景颜色时只是字体有背景，而不是整个导航栏有背景*/
+    padding: 0;   /*内边距*/
+}
+div.nav {
+    background-color: #eee;   /*设置背景颜色*/
+    border-bottom: 1px solid #ccc;   /*设置背景底边颜线及颜色*/
+    padding: 5px 10px;   /*调宽松点字*/
+}
+div.nav a {
+    text-decoration: none;   /*设置没有下划线*/
+    color: #000;   /*设置字体颜色*/
+    padding: 5px 10px;   /*设置内容之间的上下边距、左右边距（在原基础上加，调整拥挤度）*/
+}
+div.nav a.logo {
+    display: inline-block;   /*设置成一小块*/
+    font-size: 120%;
+}
